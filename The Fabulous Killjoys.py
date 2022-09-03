@@ -110,11 +110,14 @@ def TheFabulousKilljoys(nombre):
     reloj = pygame.time.Clock()  # Para limitar los fps
     termina = False
     estado = 'menu'
-    pygame.mixer.music.load('Party Poison.mp3')
-    pygame.mixer.music.play(-1, 0.0)
     listaEnemigos = []
     crearEnemigos(listaEnemigos)
     listaBalas = []
+
+
+    # MEDIA------------
+    pygame.mixer.music.load('Na Na Na.mp3')
+    pygame.mixer.music.play(-1, 0.0)
 
     # BTNJUGAR-------
     spritebtn = pygame.sprite.Sprite()
@@ -155,36 +158,33 @@ def TheFabulousKilljoys(nombre):
                         efect = pygame.mixer.Sound('shoot.wav')
                         efect.play()
                         estado = 'juego'
-                        pygame.mixer.music.load('Na Na Na.mp3')
-                        pygame.mixer.music.play(-1, 0.0)
                     elif (xa + anchoa >= x >= xa) and (ya + altoa >= y >= ya):
                         efect = pygame.mixer.Sound('shoot.wav')
                         efect.play()
                         estado = 'Acerca de'
 
+
+#-----------------------------------------------------------------------------------------------------------------------------------
+#-----------KEYDOWN----------------------------------------------------------------------------------------------------------------
             if evento.type == pygame.KEYDOWN:
                 if estado == 'juego':
                     if evento.key == pygame.K_a:
-                        spritePersonaje.rect.left -= 10
+                        spritePersonaje.rect.left -= 25
                     elif evento.key == pygame.K_d:
-
-                        spritePersonaje.rect.left += 10
+                        spritePersonaje.rect.left += 25
                     elif evento.key == pygame.K_w:
-
-                        spritePersonaje.rect.top -= 10
+                        spritePersonaje.rect.top -= 25
                     elif evento.key == pygame.K_s:
-
-                        spritePersonaje.rect.top += 10
+                        spritePersonaje.rect.top += 25
                     elif evento.key == pygame.K_SPACE:
-
-                        efect = pygame.mixer.Sound('shoot.wav')
-                        efect.play()
                         bala = pygame.sprite.Sprite()
                         bala.image = imgBala
                         bala.rect = imgBala.get_rect()
-                        bala.rect.left = spritePersonaje.rect.left + spritePersonaje.rect.width//2
+                        bala.rect.left = spritePersonaje.rect.right + spritePersonaje.rect.width//2
                         bala.rect.top = spritePersonaje.rect.top - bala.rect.height
                         listaBalas.append(bala)
+                        efect = pygame.mixer.Sound('shoot.wav')
+                        efect.play()
                 elif estado == 'Acerca de':
                     if evento.key == pygame.K_SPACE:
                         efect = pygame.mixer.Sound('shoot.wav')
@@ -205,6 +205,8 @@ def TheFabulousKilljoys(nombre):
                         estado = 'menu'
 
             if estado == 'menu':
+                #pygame.mixer.music.load('Party Poison.mp3')
+                #pygame.mixer.music.play(-1, 0.0)
                 ventana.blit(fondo, (0, 0))
                 ventana.blit(spritebtn.image, spritebtn.rect)
                 ventana.blit(spriteAcercade.image, spriteAcercade.rect)
@@ -232,8 +234,10 @@ def TheFabulousKilljoys(nombre):
                 escribirPuntuaciones(nombre, puntuacion, resultado)
                 ventana.fill(NEGRO)
                 ventana.blit(perdio, (0, 0))
+                '''                
                 pygame.mixer.music.load('08 Interlude.mp3')
                 pygame.mixer.music.play(-1, 0.0)
+                '''
             elif estado == 'Acerca de':
                 ventana.fill(NEGRO)
                 ventana.blit(fondoAcercade, (0, 0))
@@ -243,7 +247,6 @@ def TheFabulousKilljoys(nombre):
 
 
 def main():
-
     nombre = (input('Escribe aqui abajo tu nombre, alias, gamertag o como prefieras :)\n'))
     TheFabulousKilljoys(nombre)
     print("Gracias por jugar vuelve pronto :)")

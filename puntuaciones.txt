@@ -1,1 +1,1 @@
-foggy   1   perdio 
+foggy   0   perdio 
